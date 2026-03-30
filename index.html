@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d0e12;--paper:#f5f3ee;--cream:#ede9e0;--white:#fff;
+  --gold:#c9a84c;--gold-l:#e2c97e;--gold-d:rgba(201,168,76,.13);--gold-ring:rgba(201,168,76,.22);
+  --green:#2d8a5a;--red:#c0392b;--sec:#6b6860;--bd:rgba(13,14,18,.11);
+  --serif:'Georgia',serif;--sans:system-ui,sans-serif;
+  --r:16px;--rs:10px;--ease:cubic-bezier(.4,0,.2,1);--tr:.2s var(--ease);
+}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.5;font-size:15px}
+a{text-decoration:none;color:inherit}
+
+/* ── OFFER STRIP ── */
+.strip{background:var(--ink);color:#fff;text-align:center;padding:9px 16px;font-size:12px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.strip-tag{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:20px;background:var(--gold);color:var(--ink)}
+.strip strong{color:var(--gold-l)}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;height:60px;display:flex;align-items:center;padding:0 32px;gap:16px;background:rgba(245,243,238,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--bd)}
+.nav-brand{font-family:var(--serif);font-size:22px;font-weight:400;color:var(--ink);flex:1;cursor:pointer;text-decoration:none;transition:opacity var(--tr)}
+.nav-brand:hover{opacity:.75}
+.nav-brand em{color:var(--gold);font-style:italic}
+.nav-links{display:flex;align-items:center;gap:24px;font-size:13px;color:var(--sec)}
+.nav-links a{cursor:pointer;transition:color var(--tr)}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{background:var(--ink);color:#fff;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:9px 20px;border-radius:var(--rs);cursor:pointer;transition:all var(--tr);border:none}
+.nav-cta:hover{background:#1a1c24;transform:translateY(-1px)}
+
+/* ── HERO ── */
+.hero{max-width:780px;margin:0 auto;padding:80px 28px 64px;text-align:center;position:relative}
+.hero-eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;justify-content:center;gap:12px}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:36px;height:1px;background:var(--gold);opacity:.5}
+.hero-title{font-family:var(--serif);font-size:clamp(42px,6.5vw,68px);font-weight:300;line-height:1.08;color:var(--ink);margin-bottom:20px;letter-spacing:-.02em}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:16px;font-weight:300;color:var(--sec);line-height:1.7;max-width:500px;margin:0 auto 36px}
+.hero-btns{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+.btn-primary{background:var(--ink);color:#fff;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:15px 32px;border-radius:var(--rs);cursor:pointer;border:none;transition:all var(--tr);position:relative;overflow:hidden}
+.btn-primary:hover{background:#1a1c24;transform:translateY(-2px);box-shadow:0 10px 28px rgba(13,14,18,.18)}
+.btn-outline{background:transparent;color:var(--ink);font-size:13px;font-weight:500;padding:14px 28px;border-radius:var(--rs);cursor:pointer;border:1.5px solid var(--bd);transition:all var(--tr)}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.hero-note{margin-top:18px;font-size:12px;color:var(--sec);opacity:.65;display:flex;align-items:center;justify-content:center;gap:8px}
+
+/* ── STATS ROW ── */
+.stats{background:var(--white);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
+.stats-inner{max-width:880px;margin:0 auto;padding:28px 28px;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.stat{text-align:center;padding:0 16px;position:relative}
+.stat+.stat::before{content:'';position:absolute;left:0;top:10%;height:80%;width:1px;background:var(--bd)}
+.stat-num{font-family:var(--serif);font-size:36px;font-weight:300;color:var(--ink);line-height:1;letter-spacing:-.02em}
+.stat-num em{font-style:italic;color:var(--gold)}
+.stat-label{font-size:12px;color:var(--sec);margin-top:5px}
+
+/* ── SECTION WRAPPER ── */
+.section{max-width:880px;margin:0 auto;padding:72px 28px}
+.section-center{text-align:center}
+.section-eyebrow{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.section-eyebrow.center{justify-content:center}
+.section-eyebrow::after{content:'';flex:1;height:1px;background:var(--bd)}
+.section-eyebrow.center::before,.section-eyebrow.center::after{content:'';display:block;width:28px;height:1px;background:var(--gold);opacity:.5}
+.section-title{font-family:var(--serif);font-size:clamp(32px,4.5vw,46px);font-weight:300;color:var(--ink);line-height:1.1;letter-spacing:-.02em;margin-bottom:14px}
+.section-sub{font-size:15px;color:var(--sec);line-height:1.65;max-width:520px}
+.section-sub.center{margin:0 auto}
+
+/* ── WHY SECTION ── */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.why-card{background:var(--white);border:1px solid var(--bd);border-radius:var(--r);padding:28px 26px;position:relative;overflow:hidden;transition:box-shadow var(--tr),transform var(--tr)}
+.why-card:hover{box-shadow:0 8px 32px rgba(13,14,18,.09);transform:translateY(-2px)}
+.why-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity var(--tr)}
+.why-card:hover::before{opacity:1}
+.why-icon{width:40px;height:40px;border-radius:10px;background:var(--gold-d);border:1px solid var(--gold-ring);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:16px}
+.why-title{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:8px}
+.why-desc{font-size:13.5px;color:var(--sec);line-height:1.6}
+
+/* ── HOW IT WORKS ── */
+.how-bg{background:var(--ink);position:relative;overflow:hidden}
+.how-bg::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.09),transparent 55%);pointer-events:none}
+.how-bg::after{content:'';position:absolute;bottom:-160px;right:-160px;width:500px;height:500px;border-radius:50%;border:1px solid rgba(201,168,76,.07);pointer-events:none}
+.how-inner{max-width:880px;margin:0 auto;padding:72px 28px;position:relative;z-index:1}
+.how-eyebrow{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:10px}
+.how-eyebrow::before,.how-eyebrow::after{content:'';display:block;width:28px;height:1px;background:var(--gold);opacity:.5}
+.how-title{font-family:var(--serif);font-size:clamp(32px,4.5vw,46px);font-weight:300;color:#fff;line-height:1.1;letter-spacing:-.02em;margin-bottom:10px;text-align:center}
+.how-sub{font-size:15px;color:rgba(255,255,255,.45);line-height:1.65;text-align:center;max-width:480px;margin:0 auto 56px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;position:relative}
+.steps::before{content:'';position:absolute;top:34px;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.25),rgba(201,168,76,.25),rgba(201,168,76,.25),transparent)}
+.step{text-align:center;padding:0 8px}
+.step-num{width:68px;height:68px;border-radius:50%;border:1px solid rgba(201,168,76,.3);background:rgba(201,168,76,.08);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;position:relative;z-index:1}
+.step-num-inner{font-family:var(--serif);font-size:22px;font-weight:300;color:var(--gold)}
+.step-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:8px}
+.step-desc{font-size:12.5px;color:rgba(255,255,255,.45);line-height:1.6}
+
+/* ── WHAT YOU GET ── */
+.deliverables{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:48px}
+.del-card{background:var(--white);border:1px solid var(--bd);border-radius:var(--r);padding:24px 26px;display:flex;gap:16px;transition:box-shadow var(--tr)}
+.del-card:hover{box-shadow:0 4px 20px rgba(13,14,18,.07)}
+.del-icon{width:38px;height:38px;border-radius:9px;background:var(--gold-d);border:1px solid var(--gold-ring);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;margin-top:2px}
+.del-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:5px}
+.del-desc{font-size:13px;color:var(--sec);line-height:1.55}
+.del-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:2px 8px;border-radius:20px;background:rgba(45,138,90,.1);color:var(--green);border:1px solid rgba(45,138,90,.2);margin-top:6px}
+
+/* ── TESTIMONIALS ── */
+.testi-bg{background:var(--cream)}
+.testi-inner{max-width:880px;margin:0 auto;padding:72px 28px}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.testi-card{background:var(--white);border:1px solid var(--bd);border-radius:var(--r);padding:26px}
+.testi-quote{font-size:13.5px;color:var(--sec);line-height:1.7;margin-bottom:20px;position:relative}
+.testi-quote::before{content:'\201C';font-family:var(--serif);font-size:48px;color:var(--gold);opacity:.3;position:absolute;top:-12px;left:-6px;line-height:1}
+.testi-author{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--bd)}
+.testi-avatar{width:36px;height:36px;border-radius:50%;background:var(--ink);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--gold);flex-shrink:0;letter-spacing:.05em}
+.testi-name{font-size:13px;font-weight:600;color:var(--ink)}
+.testi-meta{font-size:11.5px;color:var(--sec)}
+.testi-stars{color:var(--gold);font-size:11px;letter-spacing:1px;margin-bottom:12px}
+
+/* ── PRICING ── */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.price-card{background:var(--white);border:1.5px solid var(--bd);border-radius:var(--r);padding:28px 26px;position:relative;transition:box-shadow var(--tr)}
+.price-card.featured{border-color:rgba(201,168,76,.4);box-shadow:0 4px 32px rgba(201,168,76,.1)}
+.price-card.featured::before{content:'Most Popular';position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 14px;border-radius:20px;background:var(--gold);color:var(--ink);white-space:nowrap}
+.price-plan{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.price-amount{font-family:var(--serif);font-size:44px;font-weight:300;color:var(--ink);line-height:1;letter-spacing:-.02em;margin-bottom:4px}
+.price-amount sup{font-size:18px;font-weight:400;vertical-align:super}
+.price-amount sub{font-size:14px;font-weight:400;vertical-align:baseline;color:var(--sec)}
+.price-old{font-size:13px;color:var(--sec);text-decoration:line-through;opacity:.5;margin-bottom:8px}
+.price-desc{font-size:13px;color:var(--sec);margin-bottom:20px;line-height:1.55}
+.price-divider{height:1px;background:var(--bd);margin-bottom:20px}
+.price-features{display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+.price-feat{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--sec);line-height:1.4}
+.feat-check{width:18px;height:18px;border-radius:50%;background:rgba(45,138,90,.1);border:1px solid rgba(45,138,90,.22);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:9px;color:var(--green)}
+.feat-check.na{background:rgba(13,14,18,.05);border-color:var(--bd);color:var(--sec)}
+.price-btn{width:100%;padding:13px;border-radius:var(--rs);font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all var(--tr);border:none}
+.price-btn.dark{background:var(--ink);color:#fff}
+.price-btn.dark:hover{background:#1a1c24}
+.price-btn.light{background:transparent;color:var(--ink);border:1.5px solid var(--bd)}
+.price-btn.light:hover{border-color:var(--ink)}
+
+/* ── FAQ ── */
+.faq-list{margin-top:44px;display:flex;flex-direction:column;gap:0}
+.faq-item{border-bottom:1px solid var(--bd)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:20px 0;cursor:pointer;font-size:15px;font-weight:500;color:var(--ink);gap:16px;user-select:none}
+.faq-q:hover{color:var(--gold)}
+.faq-chevron{width:20px;height:20px;border-radius:50%;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform var(--tr),border-color var(--tr),background var(--tr);font-size:11px}
+.faq-item.open .faq-chevron{transform:rotate(45deg);background:var(--ink);border-color:var(--ink);color:#fff}
+.faq-a{font-size:14px;color:var(--sec);line-height:1.7;max-height:0;overflow:hidden;transition:max-height .35s var(--ease),padding .2s}
+.faq-item.open .faq-a{max-height:200px;padding-bottom:20px}
+
+/* ── CTA BANNER ── */
+.cta-banner{background:var(--ink);position:relative;overflow:hidden}
+.cta-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.1),transparent 55%);pointer-events:none}
+.cta-inner{max-width:680px;margin:0 auto;padding:80px 28px;text-align:center;position:relative;z-index:1}
+.cta-eyebrow{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+.cta-title{font-family:var(--serif);font-size:clamp(32px,4.5vw,50px);font-weight:300;color:#fff;line-height:1.1;margin-bottom:14px}
+.cta-title em{font-style:italic;color:var(--gold-l)}
+.cta-sub{font-size:15px;color:rgba(255,255,255,.45);margin-bottom:36px;line-height:1.6}
+.cta-btns{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+.btn-gold{background:var(--gold);color:var(--ink);font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:15px 32px;border-radius:var(--rs);cursor:pointer;border:none;transition:all var(--tr)}
+.btn-gold:hover{background:var(--gold-l);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.65);font-size:13px;font-weight:500;padding:14px 24px;border-radius:var(--rs);cursor:pointer;border:1.5px solid rgba(255,255,255,.2);transition:all var(--tr)}
+.btn-ghost:hover{border-color:rgba(255,255,255,.5);color:#fff}
+.cta-slots{margin-top:20px;font-size:12px;color:rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;gap:8px}
+.slot-dot{width:7px;height:7px;border-radius:50%;background:#e05252;animation:pulse 1.8s ease infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.65)}}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);border-top:1px solid rgba(255,255,255,.06)}
+.footer-inner{max-width:880px;margin:0 auto;padding:48px 28px 32px;display:grid;grid-template-columns:1fr auto auto auto;gap:40px}
+.footer-brand{font-family:var(--serif);font-size:22px;color:#fff;margin-bottom:10px}
+.footer-brand em{color:var(--gold);font-style:italic}
+.footer-tagline{font-size:13px;color:rgba(255,255,255,.3);line-height:1.6;max-width:240px}
+.footer-col-title{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.footer-links{display:flex;flex-direction:column;gap:9px}
+.footer-link{font-size:13px;color:rgba(255,255,255,.4);cursor:pointer;transition:color var(--tr)}
+.footer-link:hover{color:rgba(255,255,255,.85)}
+.footer-bottom{max-width:880px;margin:0 auto;padding:16px 28px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.2)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:720px){
+  .stats-inner{grid-template-columns:repeat(2,1fr)}
+  .why-grid,.testi-grid,.pricing-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .steps::before{display:none}
+  .deliverables{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+  .price-card.featured::before{font-size:9px;padding:3px 10px}
+}
+@media(max-width:480px){
+  .stats-inner{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr}
+}
+</style>
+
+<!-- ── OFFER STRIP ── -->
+<div class="strip">
+  <span class="strip-tag">Founding Offer</span>
+  <span>First <strong>500 users</strong> only · ₹999 <strong>→ ₹299</strong></span>
+  <span style="opacity:.22">·</span>
+  <span style="color:rgba(255,255,255,.55)"><strong>153</strong> slots remaining</span>
+  <span style="opacity:.22">·</span>
+  <a href="pricing.html" style="color:var(--gold-l);font-weight:600;text-decoration:underline;text-underline-offset:2px;font-size:12px">See what's included →</a>
+</div>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="index.html" class="nav-brand">Admission<em>Finder</em></a>
+  <div class="nav-links">
+    <a onclick="document.querySelector('.how-bg').scrollIntoView({behavior:'smooth'})">How it works</a>
+    <a onclick="document.querySelector('.deliverables').scrollIntoView({behavior:'smooth'})">Services</a>
+    <a href="pricing.html">Pricing</a>
+    <a onclick="document.querySelector('.faq-list').scrollIntoView({behavior:'smooth'})">FAQ</a>
+  </div>
+  <a href="app.html" class="nav-cta">Start Free →</a>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-eyebrow">Graduate Admissions Intelligence</div>
+  <h1 class="hero-title">Your German Master's<br>Application, <em>Done Right</em></h1>
+  <p class="hero-sub">AI-powered college shortlisting, document strategy, and full application support — built around your exact academic profile. No guesswork. No wasted applications.</p>
+  <div class="hero-btns">
+    <a href="app.html" class="btn-primary" style="display:inline-flex;align-items:center;justify-content:center">Check My Profile — Free →</a>
+    <button class="btn-outline" onclick="document.querySelector('.how-bg').scrollIntoView({behavior:'smooth'})">See How It Works</button>
+  </div>
+  <div class="hero-note">🔒 Free to start · No credit card · Results in under 60 seconds</div>
+</div>
+
+<!-- ── STATS ── -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="stat-num">5,<em>000</em>+</div>
+      <div class="stat-label">Programs indexed across Germany</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">92<em>%</em></div>
+      <div class="stat-label">Profile match accuracy rate</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">347</div>
+      <div class="stat-label">Founding members joined</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num"><em>4.9</em></div>
+      <div class="stat-label">Average satisfaction score</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── WHY US ── -->
+<div class="section">
+  <div class="section-eyebrow">Why AdmissionFinder</div>
+  <div class="section-title">Stop Guessing.<br>Start Knowing.</div>
+  <p class="section-sub">Most students apply to the wrong universities, waste months on documents, and hear "not eligible" after submitting. We eliminate that before you begin.</p>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">🎯</div>
+      <div class="why-title">Precision matching, not guesswork</div>
+      <div class="why-desc">We cross-reference your GPA, ECTS credits, language scores, and academic background against each program's actual admission requirements — not their website's generic overview.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">📊</div>
+      <div class="why-title">German GPA conversion, done right</div>
+      <div class="why-desc">Automatically converts your score using the Bavarian formula that TUM, LMU, KIT, and every other public university applies — the number that actually determines your eligibility.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">📋</div>
+      <div class="why-title">Know your gaps before they matter</div>
+      <div class="why-desc">We identify missing subject prerequisites, credit shortfalls, and language gaps — and tell you which are hard dealbreakers versus which programs accept explanations.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">✉️</div>
+      <div class="why-title">SOP & LOR built around your profile</div>
+      <div class="why-desc">A tailored narrative strategy for your Statement of Purpose and Letters of Recommendation — what to lead with, what to address proactively, based on your actual transcript.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">⚡</div>
+      <div class="why-title">Answers in seconds, not weeks</div>
+      <div class="why-desc">No waiting on a counselor's email. Enter your profile and see matched programs — with clear eligibility reasoning — in under a minute.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🔒</div>
+      <div class="why-title">Your data stays yours</div>
+      <div class="why-desc">Your academic data is stored locally on your device and never sold to universities, agents, or advertisers. Full privacy, always.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── HOW IT WORKS ── -->
+<div class="how-bg">
+  <div class="how-inner">
+    <div class="how-eyebrow">The Process</div>
+    <div class="how-title">From Profile to Shortlist<br>in Four Steps</div>
+    <div class="how-sub">A consultancy-grade process, automated. Built for Indian students applying to Germany.</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num"><div class="step-num-inner">01</div></div>
+        <div class="step-title">Enter your profile</div>
+        <div class="step-desc">GPA, ECTS credits, IELTS score, degree background, and target field. Takes under 3 minutes.</div>
+      </div>
+      <div class="step">
+        <div class="step-num"><div class="step-num-inner">02</div></div>
+        <div class="step-title">AI matching runs</div>
+        <div class="step-desc">Our engine converts your GPA, verifies every prerequisite, and ranks programs by your actual eligibility — not popularity.</div>
+      </div>
+      <div class="step">
+        <div class="step-num"><div class="step-num-inner">03</div></div>
+        <div class="step-title">Review your report</div>
+        <div class="step-desc">See your matched programs, a subject-by-subject gap analysis, and exactly what each application will need from you.</div>
+      </div>
+      <div class="step">
+        <div class="step-num"><div class="step-num-inner">04</div></div>
+        <div class="step-title">Apply with conviction</div>
+        <div class="step-desc">Use your personalised SOP strategy, LOR guidance, and verified shortlist to submit targeted, stronger applications.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── WHAT YOU GET ── -->
+<div class="section">
+  <div class="section-eyebrow">Services Included</div>
+  <div class="section-title">Everything You Need<br>in One Report</div>
+  <p class="section-sub">The Founding Member plan includes a complete application intelligence package — what a traditional consultancy would charge ₹15,000+ to deliver.</p>
+  <div class="deliverables">
+    <div class="del-card">
+      <div class="del-icon">🏫</div>
+      <div>
+        <div class="del-title">Shortlist of 20+ matched programs</div>
+        <div class="del-desc">Ranked by your match strength from our database of 1,300+ programs across 50+ German public universities — reach, target, and safe colleges, all verified against live admission requirements. Get reports for as many colleges as you want, per intake, sorted top-to-bottom by QS ranking.</div>
+        <span class="del-tag">Included</span>
+      </div>
+    </div>
+    <div class="del-card">
+      <div class="del-icon">📊</div>
+      <div>
+        <div class="del-title">Subject-by-subject ECTS gap analysis</div>
+        <div class="del-desc">We compare your academic background against each program's prerequisites — flagging missing subject areas, credit shortfalls, and language gaps, with a clear verdict on which are hard requirements versus which programs allow exceptions.</div>
+        <span class="del-tag">Included</span>
+      </div>
+    </div>
+    <div class="del-card">
+      <div class="del-icon">📋</div>
+      <div>
+        <div class="del-title">Per-college requirement report</div>
+        <div class="del-desc">A detailed breakdown of GPA cutoffs, language requirements, deadline windows, and application portals for every program on your shortlist. No more navigating ten university websites in German.</div>
+        <span class="del-tag">Included</span>
+      </div>
+    </div>
+    <div class="del-card">
+      <div class="del-icon">✉️</div>
+      <div>
+        <div class="del-title">SOP & LOR narrative strategy</div>
+        <div class="del-desc">A personalised writing guide — which angles to take, what strengths to foreground, and what weaknesses to address proactively — tailored to your transcript and the programs you're targeting.</div>
+        <span class="del-tag">Included</span>
+      </div>
+    </div>
+    <div class="del-card">
+      <div class="del-icon">🇩🇪</div>
+      <div>
+        <div class="del-title">Bavarian formula GPA conversion</div>
+        <div class="del-desc">Your GPA precisely converted to the German scale using the Modified Bavarian Formula — the same standard used by TUM, LMU, KIT, RWTH Aachen, and all public universities.</div>
+        <span class="del-tag">Included</span>
+      </div>
+    </div>
+    <div class="del-card">
+      <div class="del-icon">🔄</div>
+      <div>
+        <div class="del-title">Unlimited target course searches</div>
+        <div class="del-desc">Re-run your search across any field — Data Science, Mechatronics, Finance, Robotics — with your locked academic profile applied instantly. No re-entry, no extra charge.</div>
+        <span class="del-tag">Included</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── TESTIMONIALS ── -->
+<div class="testi-bg">
+  <div class="testi-inner">
+    <div class="section-eyebrow center">Student Stories</div>
+    <div class="section-title" style="text-align:center">Real Results,<br>Real Students</div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">I spent two months researching TUM and KIT manually. AdmissionFinder showed me I was ineligible for both in 30 seconds — and surfaced 8 programs I actually matched. It saved me from three months of wasted effort.</div>
+        <div class="testi-author">
+          <div class="testi-avatar">RS</div>
+          <div>
+            <div class="testi-name">Rahul Sharma</div>
+            <div class="testi-meta">Computer Science → MSc Data Engineering, KIT</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">The ECTS gap analysis was eye-opening. I had no idea my 3-year B.Tech was short on math credits for certain programs. The report told me exactly which programs accepted my profile — and which ones needed a motivation letter explaining the gap.</div>
+        <div class="testi-author">
+          <div class="testi-avatar">PA</div>
+          <div>
+            <div class="testi-name">Priya Agarwal</div>
+            <div class="testi-meta">Electronics → MSc Embedded Systems, TU Berlin</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">The SOP strategy was the most valuable part. Knowing exactly what angle to take — and what my profile's real weakness was — helped me write a far stronger statement. I got into my first-choice program.</div>
+        <div class="testi-author">
+          <div class="testi-avatar">AK</div>
+          <div>
+            <div class="testi-name">Arjun Kulkarni</div>
+            <div class="testi-meta">Mechanical → MSc Robotics, TU Munich</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PRICING ── -->
+<div class="section section-center">
+  <div class="section-eyebrow center">Pricing</div>
+  <div class="section-title">Transparent Pricing,<br>No Surprises</div>
+  <p class="section-sub center">One-time payment. No subscriptions. No hidden fees. Everything you need to apply smarter.</p>
+  <div class="pricing-grid" style="margin-top:56px">
+    <div class="price-card">
+      <div class="price-plan">Free</div>
+      <div class="price-amount"><sup>₹</sup>0<sub>/forever</sub></div>
+      <div style="height:22px"></div>
+      <div class="price-desc">Try the matcher. See if your profile returns results — no commitment needed.</div>
+      <div class="price-divider"></div>
+      <div class="price-features">
+        <div class="price-feat"><div class="feat-check">✓</div>Profile matching engine</div>
+        <div class="price-feat"><div class="feat-check">✓</div>First 3 matched programs</div>
+        <div class="price-feat"><div class="feat-check">✓</div>German GPA conversion</div>
+        <div class="price-feat"><div class="feat-check na">—</div><span style="opacity:.5">Full shortlist (12 programs)</span></div>
+        <div class="price-feat"><div class="feat-check na">—</div><span style="opacity:.5">Gap analysis report</span></div>
+        <div class="price-feat"><div class="feat-check na">—</div><span style="opacity:.5">SOP & LOR strategy</span></div>
+      </div>
+      <button class="price-btn light" onclick="window.location.href='app.html'">Try for Free</button>
+    </div>
+    <div class="price-card featured">
+      <div class="price-plan">Founding Member</div>
+      <div class="price-old">₹999</div>
+      <div class="price-amount"><sup>₹</sup>299<sub>/one-time</sub></div>
+      <div class="price-desc">Complete access to every feature, forever. Reserved for our first 500 members only.</div>
+      <div class="price-divider"></div>
+      <div class="price-features">
+        <div class="price-feat"><div class="feat-check">✓</div>Everything in Free</div>
+        <div class="price-feat"><div class="feat-check">✓</div>Full shortlist — up to 12 programs</div>
+        <div class="price-feat"><div class="feat-check">✓</div>ECTS subject gap analysis</div>
+        <div class="price-feat"><div class="feat-check">✓</div>Requirement report (per college)</div>
+        <div class="price-feat"><div class="feat-check">✓</div>SOP & LOR narrative strategy</div>
+        <div class="price-feat"><div class="feat-check">✓</div>Unlimited target searches</div>
+      </div>
+      <button class="price-btn dark" onclick="window.location.href='pricing.html#founding-anchor'">Get Full Access — ₹299 →</button>
+    </div>
+    <div class="price-card">
+      <div class="price-plan">Standard</div>
+      <div class="price-amount"><sup>₹</sup>999<sub>/one-time</sub></div>
+      <div style="height:22px"></div>
+      <div class="price-desc">Full access at regular pricing, available once founding slots have closed.</div>
+      <div class="price-divider"></div>
+      <div class="price-features">
+        <div class="price-feat"><div class="feat-check">✓</div>Everything in Free</div>
+        <div class="price-feat"><div class="feat-check">✓</div>Full shortlist — up to 12 programs</div>
+        <div class="price-feat"><div class="feat-check">✓</div>ECTS subject gap analysis</div>
+        <div class="price-feat"><div class="feat-check">✓</div>Requirement report (per college)</div>
+        <div class="price-feat"><div class="feat-check">✓</div>SOP & LOR narrative strategy</div>
+        <div class="price-feat"><div class="feat-check na">—</div><span style="opacity:.5">Founding member pricing</span></div>
+      </div>
+      <button class="price-btn light" onclick="sendPrompt('Tell me more about the standard plan')">Coming Soon</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── FAQ ── -->
+<div style="background:var(--cream)">
+  <div class="section">
+    <div class="section-eyebrow">FAQ</div>
+    <div class="section-title">Common Questions</div>
+    <div class="faq-list">
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Is AdmissionFinder only for Germany? <div class="faq-chevron">+</div></div>
+        <div class="faq-a">Currently, our database covers German public universities comprehensively. We index programs across TUM, LMU, KIT, TU Berlin, RWTH Aachen, and 40+ other institutions. Expansion to Austria and the Netherlands is planned.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">How accurate is the German GPA conversion? <div class="faq-chevron">+</div></div>
+        <div class="faq-a">We use the official Bavarian formula (also called the Modified Bavarian Formula) used by most German universities: 1 + 3 × (Max GPA − Your GPA) ÷ (Max GPA − Min GPA). This is the same formula DAAD and most admissions portals use. You input your GPA, your scale's min and max, and we compute it precisely.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Why is my profile locked after the first search? <div class="faq-chevron">+</div></div>
+        <div class="faq-a">Your GPA, credits, and academic background are locked to your account to prevent profile manipulation between searches. Only your target course stays editable — so you can explore multiple fields without re-entering your academic data each time.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">What does the gap analysis actually show? <div class="faq-chevron">+</div></div>
+        <div class="faq-a">For each matched program, we compare your completed subjects (derived from your degree background and ECTS credits) against the program's stated prerequisites. We flag missing subject areas, credit shortfalls, and language requirement gaps — and indicate which are hard requirements vs. which programs accept applications with explanations.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Is my data secure? Who can see it? <div class="faq-chevron">+</div></div>
+        <div class="faq-a">Your locked profile is stored in your browser's localStorage, not on our servers. Search queries are sent to our API for matching, but we do not store or share your personal academic data with universities, agents, or advertisers. Guest sessions use sessionStorage, which clears when you close the tab.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">What if I'm not satisfied with the results? <div class="faq-chevron">+</div></div>
+        <div class="faq-a">We offer a full refund within 7 days of purchase if you feel the report didn't provide value. Email us with your registered email and we'll process it — no questions asked.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FINAL CTA ── -->
+<div class="cta-banner">
+  <div class="cta-inner">
+    <div class="cta-eyebrow">Start Today</div>
+    <div class="cta-title">Your Dream Program<br>Is <em>Closer Than You Think</em></div>
+    <div class="cta-sub">Join 347 students who already know exactly which programs they match — and have stopped guessing about their chances.</div>
+    <div class="cta-btns">
+      <button class="btn-gold" onclick="window.location.href='app.html'">Check My Profile — Free →</button>
+      <button class="btn-ghost" onclick="window.location.href='pricing.html#founding-anchor'">Get Full Report — ₹299</button>
+    </div>
+    <div class="cta-slots">
+      <div class="slot-dot"></div>
+      <span>153 founding member slots remaining at ₹299</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Admission<em>Finder</em></div>
+      <div class="footer-tagline">AI-powered graduate admissions intelligence for Indian students applying to Germany.</div>
+    </div>
+    <div>
+      <div class="footer-col-title">Product</div>
+      <div class="footer-links">
+        <div class="footer-link" onclick="window.location.href='app.html'" style="cursor:pointer">Profile Matcher</div>
+        <div class="footer-link" onclick="window.location.href='app.html'" style="cursor:pointer">Gap Analysis</div>
+        <div class="footer-link" onclick="window.location.href='app.html'" style="cursor:pointer">SOP Strategy</div>
+        <div class="footer-link" onclick="window.location.href='pricing.html'" style="cursor:pointer">Pricing</div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <div class="footer-links">
+        <div class="footer-link">About</div>
+        <div class="footer-link">Blog</div>
+        <div class="footer-link">Contact</div>
+        <div class="footer-link">Careers</div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <div class="footer-links">
+        <div class="footer-link">Privacy Policy</div>
+        <div class="footer-link">Terms of Service</div>
+        <div class="footer-link">Refund Policy</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 AdmissionFinder. All rights reserved.</span>
+    <span>Made for Indian students 🇮🇳 → 🇩🇪</span>
+  </div>
+</footer>
+
+<script>
+function toggleFaq(el){
+  const isOpen=el.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!isOpen)el.classList.add('open');
+}
+</script>
